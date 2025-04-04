@@ -1,13 +1,13 @@
 package edu.miu.cs.cs489.pensionmgmt.model;
 
 import java.time.LocalDate;
-
+import org.json.JSONObject;
 public class PensionPlan {
     private String planReferenceNumber;
     private LocalDate enrollmentDate;
-    private double monthlyContribution;
+    private Money monthlyContribution;
 
-    public PensionPlan(String planReferenceNumber, LocalDate enrollmentDate, double monthlyContribution) {
+    public PensionPlan(String planReferenceNumber, LocalDate enrollmentDate, Money monthlyContribution) {
         this.planReferenceNumber = planReferenceNumber;
         this.enrollmentDate = enrollmentDate;
         this.monthlyContribution = monthlyContribution;
@@ -30,11 +30,19 @@ public class PensionPlan {
         this.enrollmentDate = enrollmentDate;
     }
 
-    public double getMonthlyContribution() {
+    public Money getMonthlyContribution() {
         return monthlyContribution;
     }
 
-    public void setMonthlyContribution(double monthlyContribution) {
+    public void setMonthlyContribution(Money monthlyContribution) {
         this.monthlyContribution = monthlyContribution;
+    }
+
+    public JSONObject toJSONObject() {
+        var pensionPlanJSONObject = new JSONObject();
+        pensionPlanJSONObject.put("planRefenceNumber", planReferenceNumber);
+        pensionPlanJSONObject.put("enrollmentDate", enrollmentDate);
+        pensionPlanJSONObject.put("monthlyContribution", monthlyContribution.toJSONObject());
+        return pensionPlanJSONObject;
     }
 }
